@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <RootNamespace>dk.opusmagus.fd.web</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All"/>
+    <PackageReference Include="NSwag.AspNetCore" Version="13.0.6" />
+    <ProjectReference Include="..\data-transport-layer\data-transport-layer.csproj"/>
+    <ProjectReference Include="..\data-access-layer\data-access-layer.csproj"/>
+    <ProjectReference Include="..\business-layer\business-layer.csproj"/>
+    <ProjectReference Include="..\local-file-storage-layer\local-file-storage-layer.csproj"/>
+  </ItemGroup>
+</Project>

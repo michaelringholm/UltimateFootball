@@ -1,0 +1,56 @@
+pool:
+  name: Self Hosted Azure (MPN)
+
+trigger:
+  branches:
+    include:
+    - $(branch)
+
+variables:
+  ProjectsFilter: '**/web-app/web-app.csproj'
+  TestProjectsFilter: '**/*-test.csproj'
+  BuildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore (Build)
+  inputs:
+    command: restore
+    projects: '$(ProjectsFilter)'
+    vstsFeed: '/56be59e7-c638-4bf5-98ab-508c5f099fa5'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(ProjectsFilter)'
+    arguments: '--configuration $(BuildConfiguration) --no-restore'
+    vstsFeed: '/56be59e7-c638-4bf5-98ab-508c5f099fa5'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(TestProjectsFilter)'
+    arguments: '--configuration $(BuildConfiguration) --filter Category=UnitTest'
+
+- task: DotNetCoreCLI@2
+  displayName: Restore (Publish)
+  inputs:
+    command: restore
+    projects: '$(ProjectsFilter)'
+    vstsFeed: '/56be59e7-c638-4bf5-98ab-508c5f099fa5'  
+    noCache: true          
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --no-restore'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()

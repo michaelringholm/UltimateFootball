@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\data-transport-layer\data-transport-layer.csproj"/>
+    <ProjectReference Include="..\data-access-layer\data-access-layer.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.Azure.DocumentDB.Core" Version="2.5.1"/>
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.0.0"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>dk.commentor.starterproject.dal.cosmos</RootNamespace>
+  </PropertyGroup>
+</Project>

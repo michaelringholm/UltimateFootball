@@ -1,0 +1,110 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet-test-bl",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/business-layer-test/business-layer-test.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        }, 
+        {
+            "label": "dotnet-build-console",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/console/console.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },       
+        {
+            "label": "dotnet-publish-console",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/console/console.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "dotnet-watch-console",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/console/console.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "build-console",
+            "dependsOn": [
+                "dotnet-build-console"
+            ]
+        },
+        {
+            "label": "dotnet-build-web-api",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/web-api/web-api.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },       
+        {
+            "label": "dotnet-publish-web-api",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/web-api/web-api.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "dotnet-watch-web-api",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/web-api/web-api.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },        
+        {
+            "label": "build-web-api",
+            "dependsOn": [
+                "dotnet-build-web-api"
+            ]
+        },
+        {
+            "label": "dotnet-watch-web-app",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/web-app/web-app.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },         
+        {
+            "label": "build-web-app",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/web-app/web-app.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        }        
+    ]
+}

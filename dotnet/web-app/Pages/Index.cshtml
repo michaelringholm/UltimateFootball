@@ -1,0 +1,86 @@
+﻿@page
+@model IndexModel
+@section JavaScriptIncludes {
+    <script src="~/js/index.js"></script>
+    <script src="~/js/management.js"></script>
+}
+@section StylesheetIncludes {
+}
+
+<h1>Football Dreams</div>
+
+<div id="league" class="fdSection">
+    <img src="~/images/league-table.png">
+    <div class="row table-row-header align-items-center">
+        <div class="col table-cell">Position</div>
+        <div class="col table-cell">Name</div>
+        <div class="col table-cell">Points</div>
+        <div class="col table-cell">Won</div>
+        <div class="col table-cell">Draw</div>
+        <div class="col table-cell">Lost</div>
+        <div class="col table-cell">GF</div>
+        <div class="col table-cell">GA</div>
+        <div class="col table-cell">GD</div>
+        <div class="col table-cell">Matches</div>
+        <div class="col table-cell">Trend</div>
+    </div>
+    <div id="leagueTableBlade" class="align-items-center">
+    </div>
+</div>
+
+<div id="home" class="fdSection">
+    <h2>Home</h2>
+    This is a simple football manager game focusing on all the fun parts of managing a professional football club.
+    <img src="~/images/home.jpg">
+</div>
+
+<div id="transfers" class="fdSection">
+    Transfer Market
+    <img src="~/images/transfer-market.jpg">
+</div>
+
+<div id="squad" class="fdSection">
+    <h2>Squad</h2>
+    <img src="~/images/squad.png">
+</div>
+
+<div id="stadion" class="fdSection">
+    Stadion
+    <img src="~/images/seating.png">
+</div>
+
+<div id="economy" class="fdSection">
+    Economy
+    <img src="~/images/financials.png">
+</div>
+
+<div id="bottomToolbar">
+    <button id="btnHome" type="button" class="btn btn-primary" style="margin-top: 1rem;">Home</button>
+    <button id="btnLeague" type="button" class="btn btn-primary" style="margin-top: 1rem;">League</button>
+    <button id="btnSquad" type="button" class="btn btn-primary" style="margin-top: 1rem;">Squad</button>
+    <button id="btnStadion" type="button" class="btn btn-primary" style="margin-top: 1rem;">Stadion</button>
+    <button id="btnEconomy" type="button" class="btn btn-primary" style="margin-top: 1rem;">Economy</button>
+    <button id="btnTransfers" type="button" class="btn btn-primary" style="margin-top: 1rem;">Transfers</button>
+</div>
+
+<div class="container">
+
+<!-- Templates -->
+<script type="text/x-handlebars-template" id="leagueTableTemplate">
+    {{#each teams}}
+        <div class="text-center teamItem row" data-team-id="{{id}}">
+            <div class="col table-cell">{{position}}</div>
+            <div class="col table-cell">{{name}}</div>
+            <div class="col table-cell">{{points}}</div>
+            <div class="col table-cell">{{won}}</div>
+            <div class="col table-cell">{{draw}}</div>
+            <div class="col table-cell">{{lost}}</div>
+            <div class="col table-cell">{{goalsFor}}</div>
+            <div class="col table-cell">{{goalsAgainst}}</div>
+            <div class="col table-cell">{{goalDiff}}</div>
+            <div class="col table-cell">{{matchesPlayed}}</div>
+            <div class="col table-cell">{{trend}}</div>
+        </div>           
+    {{/each}}
+</script>
+</div>
