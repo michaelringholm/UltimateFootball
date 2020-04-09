@@ -28,9 +28,29 @@ function Home() {
         $("#btnHome").click(function() {_this.focus();});
     };
 
+    this.showManagerDetails = function() {
+        console.log("showManagerDetails clicked!");
+        var managerId = "fe32f338-123b-5836-a868-77a885a9b0d3";
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/api/manager/show-details",
+            data: JSON.stringify(managerId)
+          }).done(function(manager, status) {
+            console.log("showing league table...");
+            $("#managerName").html(manager.name);
+          });
+
+        /*$.post("/api/manager/show-details", JSON.stringify(managerId), function(manager, status) {
+            console.log("showing league table...");
+            $("#managerName").html(manager.name);
+        });*/
+    };    
+
     this.focus = function() {
         $(".fdSection").hide();
         $("#home").show();
+        _this.showManagerDetails();
     };
 
     construct();
@@ -103,13 +123,6 @@ function League() {
         $("#btnLeague").click(function() {_this.focus();});
     };
 
-    this.processOrder = function() {        
-        console.log("processOrder clicked!");
-        $.post("/api/league/show-league-table", function(data, status) {
-            console.log("showing league table...");
-        });
-    };
-
     this.showLeagueTable = function() {
         console.log("showLeagueTable clicked!");
         var leagueId = "0e69f338-456a-4736-a868-80a997a9b0c7";
@@ -119,16 +132,6 @@ function League() {
             var source = $("#leagueTableTemplate").html();
             var compiledTemplate = Handlebars.compile(source);
             $("#leagueTableBlade").html(compiledTemplate(data));
-        });
-    };
-
-    this.drawCars = function() {
-        console.log("drawCars clicked!");
-        $.get(apiRootUrl + "/cars.json", function(data, status){
-            console.log(data);
-            var source = $("#carBladeTemplate").html();
-            var compiledTemplate = Handlebars.compile(source);
-            $("#carBlade").html(compiledTemplate(data));
         });
     };
 

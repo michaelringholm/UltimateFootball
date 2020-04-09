@@ -36,6 +36,8 @@ namespace com.opusmagus.web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<ILeagueDAO, LocalFileStoreLeagueDAO>();
             services.AddSingleton<ShowLeagueTableCommand, ShowLeagueTableCommand>();
+            services.AddSingleton<IManagerDAO, LocalFileStoreManagerDAO>();
+            services.AddSingleton<ShowManagerDetailsCommand, ShowManagerDetailsCommand>();
         }
 
         private void addSwaggerDocument(IServiceCollection services)
