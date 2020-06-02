@@ -12,5 +12,6 @@
     <ProjectReference Include="..\data-access-layer\data-access-layer.csproj"/>
     <ProjectReference Include="..\business-layer\business-layer.csproj"/>
     <ProjectReference Include="..\local-file-storage-layer\local-file-storage-layer.csproj"/>
+    <ProjectReference Include="..\az-blob-storage-layer\az-blob-storage-layer.csproj"/>    
   </ItemGroup>
 </Project>

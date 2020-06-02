@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using dk.opusmagus.fd.bl;
 using dk.opusmagus.fd.dal;
+using dk.opusmagus.fd.dal.blob;
 using dk.opusmagus.fd.dal.local;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,9 +35,10 @@ namespace com.opusmagus.web
 
             addSwaggerDocument(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddSingleton<ILeagueDAO, LocalFileStoreLeagueDAO>();
-            services.AddSingleton<ShowLeagueTableCommand, ShowLeagueTableCommand>();
-            services.AddSingleton<IManagerDAO, LocalFileStoreManagerDAO>();
+            //services.AddSingleton<ILeagueDAO, LocalFileStoreLeagueDAO>();
+            services.AddSingleton<ILeagueDAO, AZBlobStoreLeagueDAO>();
+            services.AddSingleton<IManagerDAO, AZBlobStoreManagerDAO>();
+            services.AddSingleton<ShowLeagueTableCommand, ShowLeagueTableCommand>();            
             services.AddSingleton<ShowManagerDetailsCommand, ShowManagerDetailsCommand>();
         }
 
