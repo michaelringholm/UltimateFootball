@@ -23,7 +23,7 @@ namespace dk.opusmagus.fd.dal.blob
             //var azureServiceTokenProvider = new AzureServiceTokenProvider();
             //azureServiceTokenProvider.PrincipalUsed.
             var azureDefaultCredentials = new DefaultAzureCredential(true);
-            azureDefaultCredentials.GetToken(new TokenRequestContext());
+            //azureDefaultCredentials.GetToken(new TokenRequestContext());
             containerClient = new BlobContainerClient(new Uri(containerEndpoint), azureDefaultCredentials);
         }
 

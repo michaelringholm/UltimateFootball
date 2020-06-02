@@ -34,6 +34,7 @@ namespace com.opusmagus.web
             });            
 
             services.AddControllers();
+            services.AddRazorPages();
             addSwaggerDocument(services);
             //services.AddSingleton<ILeagueDAO, LocalFileStoreLeagueDAO>();
             services.AddSingleton<ILeagueDAO, AZBlobStoreLeagueDAO>();
@@ -88,6 +89,7 @@ namespace com.opusmagus.web
  app.UseEndpoints(endpoints =>
     {
         endpoints.MapControllers();
+        endpoints.MapRazorPages();
     });
 
             app.UseOpenApi();
