@@ -33,17 +33,18 @@ namespace com.opusmagus.web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });            
 
+            services.AddControllers();
             addSwaggerDocument(services);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //services.AddSingleton<ILeagueDAO, LocalFileStoreLeagueDAO>();
             services.AddSingleton<ILeagueDAO, AZBlobStoreLeagueDAO>();
             services.AddSingleton<IManagerDAO, AZBlobStoreManagerDAO>();
             services.AddSingleton<ShowLeagueTableCommand, ShowLeagueTableCommand>();            
             services.AddSingleton<ShowManagerDetailsCommand, ShowManagerDetailsCommand>();
+            
         }
 
         private void addSwaggerDocument(IServiceCollection services)
-        {
+        {            
             services.AddOpenApiDocument(config =>
             {
                 config.PostProcess = document =>
@@ -65,12 +66,13 @@ namespace com.opusmagus.web
                     };
                 };
             });
+            //services.AddMvcCore().AddApiExplorer();
         }        
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -80,14 +82,19 @@ namespace com.opusmagus.web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            //app.UseRouting();
             //app.UseOpenApi(settings => settings.PostProcess = OpenAPIPostProcess);
+    app.UseRouting();
+ app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
             app.UseOpenApi();
             app.UseSwaggerUi3();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseMvc();
         }
     }
 }

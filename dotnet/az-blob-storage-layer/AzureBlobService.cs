@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -18,7 +20,11 @@ namespace dk.opusmagus.fd.dal.blob
             //storageAccount = CloudStorageAccount.Parse(blobContainerConnString);
             //blobClient = storageAccount.CreateCloudBlobClient();
             var containerEndpoint = string.Format($"https://{accountName}.blob.core.windows.net/{containerName}");
-            containerClient = new BlobContainerClient(new Uri(containerEndpoint), new DefaultAzureCredential());
+            //var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            //azureServiceTokenProvider.PrincipalUsed.
+            var azureDefaultCredentials = new DefaultAzureCredential(true);
+            azureDefaultCredentials.GetToken(new TokenRequestContext());
+            containerClient = new BlobContainerClient(new Uri(containerEndpoint), azureDefaultCredentials);
         }
 
         public async Task<List<BlobItem>> getBlobItems(int maxResults)
