@@ -13,8 +13,7 @@ namespace dk.opusmagus.fd.dal.local
     public class AZBlobStoreManagerDAO : IManagerDAO
     {
         private readonly ILogger logger;
-        private readonly AzureBlobService azureBlobService;
-        private readonly string blobContainerName;
+        private readonly AzureBlobService azureBlobService;        
 
         public AZBlobStoreManagerDAO(ILogger<AZBlobStoreManagerDAO> logger, IConfiguration configuration) {
             if(logger == null) throw new Exception("parameter logger was null!");
@@ -25,12 +24,11 @@ namespace dk.opusmagus.fd.dal.local
             if(accountName == null) throw new Exception("parameter accountName was null!");
             if(containerName == null) throw new Exception("parameter containerName was null!");
             azureBlobService = new AzureBlobService(accountName, containerName);
-            this.blobContainerName = configuration.GetValue<string>("blobContainerName");
         }
 
         public async Task<ManagerDTO> Restore(Guid managerGuid)
         {
-            var json = (await azureBlobService.getBlobContents<string>(blobContainerName, $"managers/{managerGuid}.json"));
+            var json = (await azureBlobService.getBlobContents<string>($"managers/{managerGuid}.json"));
             var manager = JsonConvert.DeserializeObject<ManagerDTO>(json);
             return manager;
             //return Task.FromResult(manager);

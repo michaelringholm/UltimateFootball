@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using dk.opusmagus.fd.bl;
+using dk.opusmagus.fd.dtl;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dk.opusmagus.fd.web.controllers {
@@ -15,8 +16,8 @@ namespace dk.opusmagus.fd.web.controllers {
         }
 
         [HttpPost("show-details")]
-        public async Task<ShowManagerDetailsCommandOutputModel> ShowDetails(Guid managerId) {
-            return await ShowManagerDetailsCommand.Execute(new ShowManagerDetailsCommandInputModel{ ManagerId = managerId });
+        public async Task<ShowManagerDetailsCommandOutputModel> ShowDetails(ManagerDTO manager) {
+            return await ShowManagerDetailsCommand.Execute(new ShowManagerDetailsCommandInputModel{ ManagerId = manager.Id });
         }
     }
 }

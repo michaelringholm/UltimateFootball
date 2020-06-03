@@ -15,5 +15,6 @@ namespace dk.opusmagus.fd.dtl
         public int Lost { get; set; }
         public int MatchesPlayed { get; set; }
         public string Trend { get; set; }
+        public int LeaguePosition { get; set; }
     }
 }

@@ -30,21 +30,18 @@ function Home() {
 
     this.showManagerDetails = function() {
         console.log("showManagerDetails clicked!");
-        var managerId = "fe32f338-123b-5836-a868-77a885a9b0d3";
+        var data = { Id: "fe32f338-123b-5836-a868-77a885a9b0d3" };
         $.ajax({
             type: "POST",
             contentType: "application/json",
             url: "/api/manager/show-details",
-            data: JSON.stringify(managerId)
-          }).done(function(manager, status) {
+            data: JSON.stringify(data)
+        }).done(function(manager, status) {
             console.log("showing league table...");
-            $("#managerName").html(manager.name);
-          });
-
-        /*$.post("/api/manager/show-details", JSON.stringify(managerId), function(manager, status) {
-            console.log("showing league table...");
-            $("#managerName").html(manager.name);
-        });*/
+            var source = $("#managerTemplate").html();
+            var compiledTemplate = Handlebars.compile(source);
+            $("#managerWidget").html(compiledTemplate(manager));
+        });
     };    
 
     this.focus = function() {
@@ -126,13 +123,18 @@ function League() {
     this.showLeagueTable = function() {
         console.log("showLeagueTable clicked!");
         var leagueId = "0e69f338-456a-4736-a868-80a997a9b0c7";
-        var data = { leagueId: leagueId };
-        $.post("/api/league/show-league-table", function(data, status) {
+        var data = { Id: leagueId };
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/api/league/show-league-table",
+            data: JSON.stringify(data)
+        }).done(function(league, status) {
             console.log("showing league table...");
             var source = $("#leagueTableTemplate").html();
             var compiledTemplate = Handlebars.compile(source);
-            $("#leagueTableBlade").html(compiledTemplate(data));
-        });
+            $("#leagueTableBlade").html(compiledTemplate(league));
+        });        
     };
 
     this.focus = function() {

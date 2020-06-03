@@ -50,3 +50,7 @@ body {
 .table-row:hover {
   background-color: yellowgreen; cursor: pointer; font-weight: bold;
 }
+
+.teamItem {
+  color2: #b28110; color: #e3e300; text-align: left;
+}

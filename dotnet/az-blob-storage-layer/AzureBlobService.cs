@@ -53,7 +53,7 @@ namespace dk.opusmagus.fd.dal.blob
             return blobItems;
         }        
 
-        public async Task<byte[]> getBlobContents(string blobContainerName, string blobName) {
+        public async Task<byte[]> getBlobContents(string blobName) {
             var blobClient = containerClient.GetBlobClient(blobName);
             var memStream = new MemoryStream();
             await blobClient.DownloadToAsync(memStream);
@@ -61,8 +61,8 @@ namespace dk.opusmagus.fd.dal.blob
             return bytes;
         }
 
-        public async Task<string> getBlobContents<String>(string blobContainerName, string blobName) {
-            return Encoding.UTF8.GetString((await getBlobContents(blobContainerName, blobName)));
+        public async Task<string> getBlobContents<String>(string blobName) {
+            return Encoding.UTF8.GetString((await getBlobContents(blobName)));
         }
 
         internal async Task putBlobContents(string blobName, string jsonData)

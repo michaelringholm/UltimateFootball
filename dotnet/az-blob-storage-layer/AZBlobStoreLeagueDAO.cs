@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using dk.opusmagus.fd.dtl;
 using Microsoft.Extensions.Configuration;
@@ -23,19 +24,24 @@ namespace dk.opusmagus.fd.dal.blob
             azureBlobService = new AzureBlobService(accountName, containerName);
         }
 
-        public Task<LeagueDTO> Restore(Guid leagueId)
+        public async Task<LeagueDTO> Restore(Guid leagueId)
         {
-            //return (await GetLeague()).Where(c => c.IMONumber.Equals(imoNumber)).FirstOrDefault();
-            //return null;
-            return Task.FromResult(new LeagueDTO { Name = "National League", Id = leagueId });
+            logger.LogDebug("AZBlobStoreLeagueDAO.GetLeague called!");
+            var leaguesData = (await azureBlobService.getBlobContents<string>($"leagues/leagues.json"));
+            var leagues = Newtonsoft.Json.JsonConvert.DeserializeObject<List<LeagueDTO>>(leaguesData);
+            var league = leagues.Where(l => l.Id.Equals(leagueId)).SingleOrDefault();
+            return league;
         }
 
 
         public async Task<List<TeamDTO>> RestoreTeams(Guid leagueId)
         {
             logger.LogDebug("AZBlobStoreLeagueDAO.GetLeague called!");
-            var teamsData = (await azureBlobService.getBlobContents<string>("data", "national-league.json"));
+            var teamsData = (await azureBlobService.getBlobContents<string>($"leagues/{leagueId}.json"));
             var teams = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TeamDTO>>(teamsData);
+            teams = teams.OrderByDescending(t => t.Points).ThenByDescending(t => t.GoalsFor-t.GoalsAgainst).ToList();
+            var leaguePosition = 1;
+            teams.ForEach(t => t.LeaguePosition = leaguePosition++);
             return teams;
         }       
 

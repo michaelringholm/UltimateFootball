@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using dk.opusmagus.fd.bl;
+using dk.opusmagus.fd.dtl;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dk.opusmagus.fd.web.controllers {
@@ -15,8 +16,8 @@ namespace dk.opusmagus.fd.web.controllers {
         }
 
         [HttpPost("show-league-table")]
-        public async Task<ShowLeagueTableOutputModel> ShowLeagueTable(Guid leagueId) {
-            return await ShowLeagueTableCommand.Execute(new ShowLeagueTableInputModel{ LeagueId = Guid.NewGuid() });
+        public async Task<ShowLeagueTableOutputModel> ShowLeagueTable(LeagueDTO league) {
+            return await ShowLeagueTableCommand.Execute(new ShowLeagueTableInputModel{ LeagueId = league.Id });
         }
     }
 }

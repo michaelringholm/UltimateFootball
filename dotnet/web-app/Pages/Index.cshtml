@@ -30,11 +30,8 @@
 
 <div id="home" class="fdSection">
     <h2>Home</h2>
-    <div class="row">This is a simple football manager game focusing on all the fun parts of managing a professional football club.</div>
-    <div id="managerName" class="row">[managerName]</div>
-    <div id="season" class="row">[season]</div>
-    <div id="round" class="row">[round]</div>
-    <div id="teamId" class="row">[teamId]</div>
+    <div class="row">This is a simple football manager game focusing on all the fun parts of managing a professional football club.</div>   
+    <div id="managerWidget" class="row"></div>
     <img src="~/images/home.jpg">
 </div>
 
@@ -73,7 +70,7 @@
 <script type="text/x-handlebars-template" id="leagueTableTemplate">
     {{#each teams}}
         <div class="text-center teamItem row" data-team-id="{{id}}">
-            <div class="col table-cell">{{position}}</div>
+            <div class="col table-cell">{{leaguePosition}}</div>
             <div class="col table-cell">{{name}}</div>
             <div class="col table-cell">{{points}}</div>
             <div class="col table-cell">{{won}}</div>
@@ -86,5 +83,14 @@
             <div class="col table-cell">{{trend}}</div>
         </div>           
     {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="managerTemplate">
+    <div class="text-center manager container" data-manager-id="{{manager.id}}">
+        <div id="managerName" class="row">Name: {{manager.name}}</div>
+        <div id="season" class="row">Season: {{manager.season}}</div>
+        <div id="round" class="row">Round: {{manager.round}}</div>
+        <div id="teamId" class="row">TeamId: {{manager.teamId}}</div>
+    </div>           
 </script>
 </div>
