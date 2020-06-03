@@ -11,6 +11,9 @@ using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage.Blob;
+
 namespace dk.opusmagus.fd.dal.blob 
 {
     public class AzureBlobService {
@@ -24,7 +27,18 @@ namespace dk.opusmagus.fd.dal.blob
             //azureServiceTokenProvider.PrincipalUsed.
             var azureDefaultCredentials = new DefaultAzureCredential(true);
             //azureDefaultCredentials.GetToken(new TokenRequestContext());
-            containerClient = new BlobContainerClient(new Uri(containerEndpoint), azureDefaultCredentials);
+
+            var provider = new AzureServiceTokenProvider();
+            var token = provider.GetAccessTokenAsync($"https://{accountName}.blob.core.windows.net").ConfigureAwait(false).GetAwaiter().GetResult();
+            var tokenCredential = new Microsoft.Azure.Storage.Auth.TokenCredential(token);
+            
+            var legacyTokenCredential = new AzureLegacyTokenCredential(tokenCredential);
+            //var storageCredentials = new StorageCredentials(tokenCredential);
+            var uri = new Uri(containerEndpoint);
+            containerClient = new BlobContainerClient(uri, legacyTokenCredential);
+
+
+            //containerClient = new BlobContainerClient(new Uri(containerEndpoint), azureDefaultCredentials);
         }
 
         public async Task<List<BlobItem>> getBlobItems(int maxResults)
