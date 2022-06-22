@@ -8,6 +8,6 @@
   <ItemGroup>
     <ProjectReference Include="..\data-transport-layer\data-transport-layer.csproj"/>
     <ProjectReference Include="..\data-access-layer\data-access-layer.csproj"/>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
   </ItemGroup>
 </Project>
